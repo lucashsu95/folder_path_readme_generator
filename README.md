@@ -1,0 +1,3 @@
+# folder_path_readme_generator.py 資料夾路徑README生成器
+
+這是一個用於讀取資料夾結構，轉換成目錄並生成README文件的Python腳本
