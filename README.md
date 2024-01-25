@@ -1,4 +1,4 @@
-# folder_path_readme_generator.py 資料夾路徑README生成器
+# 資料夾路徑README生成器
 
 這個Python腳本的功能是讀取指定資料夾的結構，並生成一個包含目錄信息的README.md文件。具體而言，它執行以下操作：
 
