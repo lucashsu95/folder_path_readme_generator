@@ -17,7 +17,7 @@ def dfs(directory, output, depth=1):
     try:
         items = os.listdir(directory)
         for item_idx, item in enumerate(items, start=1):
-            if item in ['.git','README.md','create-Table-of-contents.py']:
+            if item in ['.git','README.md','folder_path_readme_generator.py']:
                 continue
             item_path = os.path.join(directory, item)
 
