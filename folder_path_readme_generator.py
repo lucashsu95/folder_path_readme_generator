@@ -9,36 +9,31 @@ def processStr(n:str):
     return newSt[1:].replace("\\","/") # 去掉根目錄，把反斜線換成斜線
 
 
-def dfs(directory, output, depth=1):
-    global sec_id
+def dfs(directory, output, folderIdxs,depth=1):
     try:
         items = os.listdir(directory)
-        for item_idx, item in enumerate(items, start=1):
-            if item in gitignore:
-                continue
+        flag = 0
+        for idx,item in enumerate(items,start=1):
+            if item in gitignore: continue
             item_path = os.path.join(directory, item)
-
             space = ' ' * (depth-1) * 4
+
             if os.path.isdir(item_path):
-                title = f"第{sec_id}章"
-                print(f"{space}- # {title} {item}", "\n", file=output)
-                dfs(item_path, output, depth=depth + 1)
+                folderIdxs[-1] = str(int(folderIdxs[-1]) + 1)
+                number = '#' * depth if depth < 7 else ''
+
+                print(f"{space}- {number} 第{'-'.join(folderIdxs)}章 {item}", file=output)
+                dfs(item_path, output,folderIdxs + [str(flag)], depth=depth + 1)
             else:
-                title = f"{sec_id:02d}-{item_idx}"
+                title = f"{'-'.join(folderIdxs[:-1])}_**{idx:02d}**"
                 print(f"{space}- {title} [{item}]({processStr(item_path)})", file=output)
-
-            if depth == 1:
-                sec_id += 1
-
-        # print("\n", file=output)
 
     except OSError:
         print(f"Error reading files in directory: {directory}")
 
-gitignore = ['.git','README.md','folder_path_readme_generator.py','demo.md'] # 要忽略的檔案
-sec_id = 1
+gitignore = ['.git','README.md','folder_path_readme_generator.py','folder_path_readme_generator1.py','demo.md'] # 要忽略的檔案
 folder_name = os.path.abspath('.')
 root_path = f'{folder_name}'
 output = open(f"{folder_name}/demo.md", "w", encoding="utf-8")
-dfs(root_path, output)
+dfs(root_path, output,['0'])
 output.close()
