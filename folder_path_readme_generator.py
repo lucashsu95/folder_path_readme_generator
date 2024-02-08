@@ -10,6 +10,7 @@ def dfs(directory, output, folder_indexes,depth=1):
     try:
         ignore_list = ('.git', 'README.md', 'demo.md', 'folder_path_readme_generator.py')
         items = list(filter(lambda x: x not in ignore_list, os.listdir(directory)))
+        items = sorted(items,key=lambda x: (os.path.isdir(os.path.join(directory, x))),reverse=True)
         folder_index = 0
 
         for idx,item in enumerate(items,start=1):
